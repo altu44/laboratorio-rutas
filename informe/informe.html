@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Informe técnico · Laboratorio de Rutas</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  :root { --ink:#0f172a; --muted:#475569; --line:#cbd5e1; --accent:#2563eb; --soft:#f1f5f9; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Calibri, Arial, sans-serif; color: var(--ink); font-size: 10.5pt; line-height: 1.45; margin: 0; }
+  h1, h2, h3, h4 { line-height: 1.2; color: #0b1220; }
+  h2 { font-size: 17pt; border-bottom: 3px solid var(--accent); padding-bottom: 4px; margin: 0 0 12px; break-after: avoid; }
+  h3 { font-size: 12.5pt; margin: 18px 0 6px; break-after: avoid; }
+  h4 { font-size: 11pt; margin: 12px 0 4px; break-after: avoid; }
+  p { margin: 0 0 8px; text-align: justify; }
+  ul, ol { margin: 4px 0 8px; padding-left: 20px; }
+  li { margin-bottom: 3px; }
+  a { color: var(--accent); text-decoration: none; }
+  code { font-family: Consolas, "Courier New", monospace; font-size: 9pt; background: var(--soft); padding: 0 3px; border-radius: 3px; }
+  pre { font-family: Consolas, "Courier New", monospace; font-size: 8.6pt; line-height: 1.35; background: #0f172a; color: #e2e8f0; padding: 9px 11px; border-radius: 6px; white-space: pre-wrap; margin: 6px 0 10px; break-inside: avoid; }
+  pre .c { color: #94a3b8; } pre .k { color: #fbbf24; }
+  table { border-collapse: collapse; width: 100%; margin: 6px 0 12px; font-size: 9pt; break-inside: auto; }
+  th, td { border: 1px solid var(--line); padding: 4px 6px; vertical-align: top; text-align: left; }
+  th { background: #1e293b; color: #fff; font-weight: 600; }
+  tr { break-inside: avoid; }
+  td.c, th.c { text-align: center; }
+  .ok { color: #15803d; font-weight: 700; }
+  .ko { color: #b91c1c; font-weight: 700; }
+  section.chapter { break-before: page; }
+  figure { margin: 8px 0 14px; break-inside: avoid; text-align: center; }
+  figure img { max-width: 100%; border: 1px solid var(--line); border-radius: 4px; }
+  figcaption { font-size: 8.8pt; color: var(--muted); margin-top: 4px; font-style: italic; }
+  .crop { position: relative; overflow: hidden; width: 100%; aspect-ratio: var(--w) / var(--h); border: 1px solid var(--line); border-radius: 4px; margin: 0 auto; }
+  .crop img { position: absolute; max-width: none; border: 0; width: calc(1400 / var(--w) * 100%); left: calc(var(--x) / var(--w) * -100%); top: calc(var(--y) / var(--h) * -100%); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .box { border: 1px solid var(--line); border-left: 4px solid var(--accent); background: #f8fafc; padding: 8px 10px; border-radius: 4px; margin: 8px 0 12px; break-inside: avoid; }
+  .box.green { border-left-color: #16a34a; background: #f0fdf4; }
+  .box.amber { border-left-color: #d97706; background: #fffbeb; }
+  .small { font-size: 9pt; color: var(--muted); }
+
+  /* Portada */
+  .cover { height: 250mm; display: flex; flex-direction: column; justify-content: space-between; }
+  .cover .top { margin-top: 30mm; }
+  .cover .kicker { text-transform: uppercase; letter-spacing: 2px; color: var(--accent); font-weight: 700; font-size: 11pt; }
+  .cover h1 { font-size: 34pt; margin: 8px 0 6px; letter-spacing: -0.5px; }
+  .cover .sub { font-size: 14pt; color: var(--muted); }
+  .cover .logo { width: 70px; height: 70px; margin-bottom: 18px; }
+  .cover table { font-size: 10.5pt; width: auto; min-width: 60%; }
+  .cover td { border: 0; padding: 3px 18px 3px 0; }
+  .cover td:first-child { color: var(--muted); }
+  .toc ol { padding-left: 18px; font-size: 11pt; }
+  .toc li { margin-bottom: 5px; }
+  .toc ol ol { font-size: 10pt; margin-top: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ================================================================== PORTADA -->
+<div class="cover">
+  <div class="top">
+    <svg class="logo" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#1e293b"/><path d="M7 25V15h9V7h9" fill="none" stroke="#facc15" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="25" r="3.5" fill="#22c55e"/><circle cx="25" cy="7" r="3.5" fill="#f43f5e"/></svg>
+    <div class="kicker">Informe técnico · Programación de IA</div>
+    <h1>Laboratorio de Rutas</h1>
+    <p class="sub">Búsqueda de caminos con BFS, DFS, UCS y A* sobre un tablero editable de 20 × 20</p>
+  </div>
+  <div>
+    <table>
+      <tr><td>Autor</td><td><b>Julen Altuna</b></td></tr>
+      <tr><td>Asignatura</td><td>Programación de IA</td></tr>
+      <tr><td>Fecha</td><td>30 de septiembre de 2026</td></tr>
+      <tr><td>Aplicación (Netlify)</td><td><a href="https://laboratorio-rutas-julen.netlify.app">laboratorio-rutas-julen.netlify.app</a></td></tr>
+      <tr><td>Repositorio (GitHub)</td><td><a href="https://github.com/altu44/laboratorio-rutas">github.com/altu44/laboratorio-rutas</a></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ================================================================== ÍNDICE -->
+<section class="chapter toc">
+  <h2>Índice</h2>
+  <ol>
+    <li>Paso a paso de la construcción</li>
+    <li>Arquitectura del proyecto</li>
+    <li>Explicación de los algoritmos: BFS, DFS, UCS, A* y Binary Search</li>
+    <li>Tabla comparativa de los cuatro laberintos</li>
+    <li>Lenguaje de etiquetado, lenguaje de programación y herramientas</li>
+    <li>Mejoras implementadas</li>
+    <li>Pruebas realizadas</li>
+    <li>Limitaciones y enlaces</li>
+  </ol>
+
+  <h3>Resumen</h3>
+  <p>Se ha desarrollado una aplicación web estática que permite dibujar un tablero de 20 × 20 celdas con un inicio, una o varias metas (cada una con una penalización no negativa), obstáculos y baldosas con peso, y ejecutar sobre él cuatro algoritmos de búsqueda: <b>BFS</b>, <b>DFS</b>, <b>UCS</b> y <b>A*</b>. La aplicación anima la exploración (celdas exploradas, frontera y ruta final), permite pausarla y cambiar la velocidad, informa de las métricas (exploradas, pasos, coste de la ruta, coste de la meta y coste total) y compara los cuatro algoritmos sobre el mismo mapa con una tabla, rutas superpuestas y una conclusión generada automáticamente.</p>
+  <p>Se incluyen cuatro escenarios diseñados que ponen a prueba decisiones distintas (menos pasos, atajo caro, varias metas y mapa sin solución), una batería de <b>14 pruebas automáticas</b> (todas superadas) y la comprobación de que <b>UCS y A* obtienen siempre el mismo coste óptimo</b> en 504 mapas con pesos no negativos.</p>
+  <figure>
+    <div class="crop" style="--x:0;--y:0;--w:1400;--h:1460"><img src="../docs/capturas/09_esc3_comparar.png" alt=""></div>
+    <figcaption>Figura 1. Vista general de la aplicación: escenario 3 (varias metas) con los cuatro algoritmos comparados.</figcaption>
+  </figure>
+</section>
+
+<!-- ================================================================== 1. CONSTRUCCIÓN -->
+<section class="chapter">
+  <h2>1. Paso a paso de la construcción</h2>
+
+  <h3>Paso 1 · Análisis de requisitos</h3>
+  <p>Se partió del enunciado y se agruparon los requisitos en cinco bloques: (1) tablero editable y coherente, (2) reglas de movimiento y coste, (3) los cuatro algoritmos, (4) visualización y métricas y (5) comparación. También se revisó el proyecto base <code>laboratorio_rutas</code> visto en clase, que implementaba los cuatro algoritmos con <b>una sola meta</b>, sin penalizaciones, sin pausa y con una cola de prioridad lineal; esos puntos se convirtieron en las mejoras del apartado 6.</p>
+
+  <h3>Paso 2 · Diseño de la interfaz con draw.io</h3>
+  <p>Antes de programar se diseñó la estructura de la pantalla con <b>draw.io</b> (diagrams.net). El wireframe define cinco zonas: cabecera con los controles de ejecución, panel <i>Algoritmo</i> a la izquierda (método, escenarios y dibujo), el <i>Mapa 20 × 20</i> en el centro con su leyenda, panel <i>Métricas</i> a la derecha y la zona <i>Comparativa</i> abajo. La aplicación final respeta esta distribución.</p>
+  <div class="two">
+    <figure><img src="../docs/img/estructura_laboratorio.drawio.png" alt="Wireframe en draw.io"><figcaption>Figura 2. Wireframe de la estructura realizado con draw.io.</figcaption></figure>
+    <figure><div class="crop" style="--x:0;--y:0;--w:1400;--h:1260"><img src="../docs/capturas/01_inicio.png" alt=""></div><figcaption>Figura 3. Resultado implementado siguiendo el wireframe.</figcaption></figure>
+  </div>
+
+  <h3>Paso 3 · Estructura de carpetas y repositorio</h3>
+  <p>Se creó el repositorio Git con una separación clara entre estructura (<code>index.html</code>), estilo (<code>css/</code>), lógica (<code>js/</code>), pruebas (<code>tests/</code>) y documentación (<code>docs/</code>, <code>informe/</code>). La lógica se dividió en módulos pequeños que no dependen del DOM para poder probarlos por separado.</p>
+
+  <h3>Paso 4 · Modelo del tablero (<code>grid.js</code>)</h3>
+  <p>Cada celda guarda <b>un único tipo</b> (<code>empty</code>, <code>wall</code>, <code>weight</code>, <code>start</code>, <code>goal</code>) más su peso o penalización. Así es imposible representar una celda que sea muro y meta a la vez. Todas las operaciones de edición (<code>setWall</code>, <code>setWeight</code>, <code>erase</code>, <code>setStart</code>, <code>setGoal</code>, <code>moveSpecial</code>) validan la operación y devuelven si han cambiado algo: el inicio es único, no se pisa una meta con el inicio ni al revés, y pesos y penalizaciones se limitan a enteros válidos (peso 2–99, penalización ≥ 0). El modelo también sabe cargar mapas escritos en texto y generar mapas aleatorios con semilla.</p>
+<pre><span class="k">setGoal</span>(row, col, penalty = 0) {
+  const idx = this.index(row, col);
+  if (idx === this.start) return false;               <span class="c">// una meta no puede estar sobre el inicio</span>
+  const p = clampInt(penalty, 0, MAX_PENALTY, 0);      <span class="c">// penalización NO negativa</span>
+  this.cells[idx] = { type: TYPE.GOAL, weight: 1, penalty: p };
+  return true;
+}</pre>
+
+  <h3>Paso 5 · Algoritmos (<code>algorithms.js</code>) y cola de prioridad (<code>priorityQueue.js</code>)</h3>
+  <p>Los cuatro algoritmos se escribieron como <b>funciones puras</b>: reciben el tablero y devuelven un objeto con la ruta, los pasos, el coste de ruta, la penalización, el coste total, las celdas exploradas y una <b>traza</b> (qué celda se expande en cada paso y qué vecinos entran en la frontera). La interfaz usa esa traza para animar. UCS y A* comparten el mismo código de búsqueda de mejor-primero y solo se diferencian en la heurística. La cola de prioridad mantiene los elementos ordenados insertándolos con <b>búsqueda binaria</b>.</p>
+
+  <h3>Paso 6 · Interfaz, edición y animación (<code>app.js</code>, <code>styles.css</code>)</h3>
+  <p>Se construyeron las 400 celdas una sola vez y se repintan por clases CSS. La edición funciona con ratón, táctil (<i>pointer events</i>) y teclado (flechas + Enter). Arrastrar el inicio o una meta los mueve. La animación avanza la traza con <code>setTimeout</code> según la velocidad elegida y se puede pausar y reanudar; si el usuario edita el tablero durante o después de una ejecución, la animación se detiene y los resultados se invalidan.</p>
+  <div class="two">
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/02_explorando_bfs.png" alt=""></div><figcaption>Figura 4. Exploración de BFS en pausa: azul = explorado, lila = frontera, borde negro = nodo actual.</figcaption></figure>
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/04_esc1_dfs.png" alt=""></div><figcaption>Figura 5. Resultado final de DFS con su ruta y métricas.</figcaption></figure>
+  </div>
+
+  <h3>Paso 7 · Comparativa</h3>
+  <p><i>Comparar todos</i> ejecuta los cuatro algoritmos sobre una misma copia del tablero, rellena la tabla (meta, exploradas, pasos, coste total y cálculo), resalta en verde el mejor valor de cada columna y genera una conclusión automática. Las rutas pueden verse <b>superpuestas</b> (cada algoritmo con su color y un pequeño desplazamiento para que no se tapen) o <b>una a una</b> con <i>Alternar rutas</i>, la lista <i>Ruta a mostrar</i> o haciendo clic en una fila.</p>
+
+  <h3>Paso 8 · Escenarios diseñados (<code>scenarios.js</code>)</h3>
+  <p>Los cuatro escenarios se definieron como texto (<code>#</code> muro, <code>S</code> inicio, dígitos = peso, letras = metas) para que se carguen siempre igual. Cada uno se diseñó para provocar una decisión concreta y se ajustó comprobando sus resultados con las pruebas automáticas (apartado 4).</p>
+<pre><span class="c">// Escenario 2 · Atajo caro (fragmento)</span>
+"..################..",
+".S.55555555555555.G.",   <span class="c">// pasillo corto: 14 baldosas de peso 5</span>
+"..################..",</pre>
+
+  <h3>Paso 9 · Pruebas</h3>
+  <p>Se creó <code>tests/tests.html</code>, que carga los mismos módulos que la aplicación y ejecuta 14 casos con entrada, esperado, obtenido y estado. Además, la aplicación acepta parámetros de URL (<code>?escenario=</code>, <code>?mapa=</code>, <code>&amp;guion=</code>) que reproducen exactamente un estado; con ellos y Chrome en modo <i>headless</i> se generaron todas las capturas de este informe.</p>
+
+  <h3>Paso 10 · Publicación</h3>
+  <p>El código se subió a un repositorio público de GitHub y se conectó a <b>Netlify</b>. Al ser un sitio estático no hay paso de compilación (<code>netlify.toml</code> publica la raíz); cada <code>git push</code> a <code>main</code> redespliega la web automáticamente.</p>
+</section>
+
+<!-- ================================================================== 2. ARQUITECTURA -->
+<section class="chapter">
+  <h2>2. Arquitectura del proyecto</h2>
+  <p>Es una aplicación <b>cliente pura</b> (no hay servidor ni base de datos) organizada en capas: <b>presentación</b> (HTML + CSS), <b>controlador de interfaz</b> (<code>app.js</code>) y <b>dominio</b> (modelo, estructuras de datos y algoritmos), que no conoce el DOM. Todos los módulos se cargan como <i>scripts</i> clásicos y comparten un único espacio de nombres global <code>Lab</code>, de modo que la web funciona incluso abriendo el archivo con doble clic.</p>
+
+  <figure>
+  <svg viewBox="0 0 760 360" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial" font-size="12">
+    <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker></defs>
+    <rect x="10" y="10" width="740" height="92" rx="10" fill="#eff6ff" stroke="#93c5fd"/>
+    <text x="22" y="30" font-weight="700" fill="#1d4ed8">PRESENTACIÓN</text>
+    <rect x="30" y="42" width="200" height="46" rx="7" fill="#fff" stroke="#2563eb"/><text x="130" y="62" text-anchor="middle" font-weight="700">index.html</text><text x="130" y="78" text-anchor="middle" fill="#475569">estructura (HTML5)</text>
+    <rect x="280" y="42" width="200" height="46" rx="7" fill="#fff" stroke="#2563eb"/><text x="380" y="62" text-anchor="middle" font-weight="700">css/styles.css</text><text x="380" y="78" text-anchor="middle" fill="#475569">estilo y diseño adaptable</text>
+    <rect x="530" y="42" width="200" height="46" rx="7" fill="#fff" stroke="#2563eb"/><text x="630" y="62" text-anchor="middle" font-weight="700">SVG #routes</text><text x="630" y="78" text-anchor="middle" fill="#475569">rutas superpuestas</text>
+
+    <rect x="10" y="118" width="740" height="72" rx="10" fill="#f5f3ff" stroke="#c4b5fd"/>
+    <text x="22" y="138" font-weight="700" fill="#6d28d9">CONTROLADOR DE INTERFAZ</text>
+    <rect x="200" y="130" width="360" height="50" rx="7" fill="#fff" stroke="#7c3aed"/><text x="380" y="150" text-anchor="middle" font-weight="700">js/app.js</text><text x="380" y="167" text-anchor="middle" fill="#475569">eventos · edición · animación de la traza · métricas · comparativa · URL</text>
+
+    <rect x="10" y="206" width="740" height="104" rx="10" fill="#f0fdf4" stroke="#86efac"/>
+    <text x="22" y="226" font-weight="700" fill="#15803d">DOMINIO (sin DOM, reutilizado por las pruebas)</text>
+    <rect x="24" y="238" width="160" height="58" rx="7" fill="#fff" stroke="#16a34a"/><text x="104" y="260" text-anchor="middle" font-weight="700">grid.js</text><text x="104" y="276" text-anchor="middle" fill="#475569">modelo del tablero</text><text x="104" y="289" text-anchor="middle" fill="#475569">+ mapas con semilla</text>
+    <rect x="206" y="238" width="160" height="58" rx="7" fill="#fff" stroke="#16a34a"/><text x="286" y="260" text-anchor="middle" font-weight="700">algorithms.js</text><text x="286" y="276" text-anchor="middle" fill="#475569">BFS · DFS · UCS · A*</text><text x="286" y="289" text-anchor="middle" fill="#475569">resultado + traza</text>
+    <rect x="388" y="238" width="160" height="58" rx="7" fill="#fff" stroke="#16a34a"/><text x="468" y="260" text-anchor="middle" font-weight="700">priorityQueue.js</text><text x="468" y="276" text-anchor="middle" fill="#475569">Binary Search +</text><text x="468" y="289" text-anchor="middle" fill="#475569">cola de prioridad</text>
+    <rect x="570" y="238" width="160" height="58" rx="7" fill="#fff" stroke="#16a34a"/><text x="650" y="260" text-anchor="middle" font-weight="700">scenarios.js</text><text x="650" y="276" text-anchor="middle" fill="#475569">4 escenarios</text><text x="650" y="289" text-anchor="middle" fill="#475569">en texto</text>
+
+    <rect x="200" y="322" width="360" height="32" rx="7" fill="#fff7ed" stroke="#f59e0b"/><text x="380" y="343" text-anchor="middle" font-weight="700">tests/tests.html + tests.js  (14 pruebas)</text>
+
+    <line x1="380" y1="88" x2="380" y2="128" stroke="#475569" stroke-width="1.5" marker-end="url(#ar)"/>
+    <line x1="300" y1="180" x2="120" y2="236" stroke="#475569" stroke-width="1.5" marker-end="url(#ar)"/>
+    <line x1="340" y1="180" x2="290" y2="236" stroke="#475569" stroke-width="1.5" marker-end="url(#ar)"/>
+    <line x1="460" y1="180" x2="640" y2="236" stroke="#475569" stroke-width="1.5" marker-end="url(#ar)"/>
+    <line x1="366" y1="267" x2="386" y2="267" stroke="#475569" stroke-width="1.5" marker-end="url(#ar)"/>
+    <line x1="206" y1="280" x2="186" y2="280" stroke="#475569" stroke-width="1.5" marker-end="url(#ar)"/>
+    <line x1="380" y1="322" x2="300" y2="298" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+  </svg>
+  <figcaption>Figura 6. Capas y dependencias. Las flechas indican “usa a”. Las pruebas reutilizan el dominio sin interfaz.</figcaption>
+  </figure>
+
+  <h3>Responsabilidad de cada archivo</h3>
+  <table>
+    <tr><th>Archivo</th><th>Responsabilidad</th></tr>
+    <tr><td><code>index.html</code></td><td>Estructura semántica: cabecera, tres paneles (<code>aside</code> / <code>section</code>), comparativa y pie. Carga los <i>scripts</i> en orden de dependencia.</td></tr>
+    <tr><td><code>css/styles.css</code></td><td>Variables de color, CSS Grid para el layout de 3 columnas, tablero cuadrado con <code>aspect-ratio: 1/1</code>, estados de celda y reglas <code>@media</code> para tablet y móvil.</td></tr>
+    <tr><td><code>js/grid.js</code></td><td>Clase <code>Grid</code>: celdas, inicio, metas, costes de entrada, validación (<code>validate()</code>), edición coherente, carga desde texto y mapas aleatorios reproducibles (generador <i>mulberry32</i>).</td></tr>
+    <tr><td><code>js/priorityQueue.js</code></td><td><code>binarySearch</code>, <code>lowerBound</code> y la clase <code>PriorityQueue</code> estable (prioridad, desempate, orden de llegada).</td></tr>
+    <tr><td><code>js/algorithms.js</code></td><td><code>bfs</code>, <code>dfs</code>, <code>ucs</code>, <code>astar</code>, heurística multi-meta, reconstrucción de la ruta y cálculo de costes. <code>search.run()</code> valida, ejecuta y mide el tiempo; <code>search.runAll()</code> ejecuta los cuatro.</td></tr>
+    <tr><td><code>js/scenarios.js</code></td><td>Definición de los cuatro escenarios (mapa, penalizaciones, qué ponen a prueba y resultado esperado).</td></tr>
+    <tr><td><code>js/app.js</code></td><td>Pintado del tablero, eventos de ratón/táctil/teclado, animación de la traza, pausa, métricas, explicación del algoritmo, comparativa, conclusiones y parámetros de URL.</td></tr>
+    <tr><td><code>tests/</code></td><td>Página de pruebas que ejecuta los 14 casos y muestra la tabla de resultados de los escenarios.</td></tr>
+  </table>
+
+  <h3>Flujo de una ejecución</h3>
+  <ol>
+    <li>El usuario pulsa <b>Ejecutar</b> → <code>app.js</code> llama a <code>Lab.search.run(alg, grid)</code>.</li>
+    <li><code>run</code> valida el tablero (inicio y al menos una meta). Si falta algo, devuelve un error y la interfaz muestra “No se puede ejecutar”.</li>
+    <li>El algoritmo devuelve <code>{ found, path, steps, pathCost, penalty, totalCost, explored, trace }</code>.</li>
+    <li>La interfaz recorre <code>trace</code> a la velocidad elegida pintando frontera y exploradas; al terminar dibuja la ruta (celdas amarillas + línea SVG) y rellena las métricas.</li>
+    <li>Cualquier edición posterior llama a <code>boardChanged()</code>, que detiene la animación e invalida los resultados.</li>
+  </ol>
+  <p>El contrato común entre algoritmos (mismo formato de resultado y misma traza) es lo que permite animarlos y compararlos con el mismo código de interfaz.</p>
+</section>
+
+<!-- ================================================================== 3. ALGORITMOS -->
+<section class="chapter">
+  <h2>3. Explicación de los algoritmos</h2>
+  <p>El tablero se modela como un <b>grafo</b>: cada celda transitable es un nodo y existe una arista hacia cada vecina ortogonal (Norte, Este, Sur, Oeste, en ese orden). El coste de una arista es el coste de <b>entrar</b> en la celda destino (1 o su peso). Si la meta alcanzada tiene penalización, se suma al final: <b>coste total = coste de la ruta + penalización</b>. Los cuatro algoritmos son búsquedas en grafo: guardan qué nodos ya se han expandido para no repetirlos, lo que garantiza que terminan siempre, también cuando no hay solución.</p>
+
+  <h3>3.1 BFS · Búsqueda en anchura</h3>
+  <p>Usa una <b>cola FIFO</b>: el primer nodo que entra es el primero que se expande. Por eso explora “en ondas”: primero todas las celdas a 1 paso, después las de 2, etc. La primera meta que sale de la cola es la que está a <b>menos pasos</b>. Es completo y óptimo en número de pasos, pero <b>ignora pesos y penalizaciones</b>.</p>
+<pre>cola ← [inicio]; descubierto[inicio] ← cierto
+<span class="k">mientras</span> cola no vacía:
+    n ← cola.sacarPrimero()
+    <span class="k">si</span> n es meta: <span class="k">devolver</span> ruta(n)
+    <span class="k">para cada</span> vecino v de n (N, E, S, O) no descubierto:
+        descubierto[v] ← cierto; padre[v] ← n; cola.añadir(v)
+<span class="k">devolver</span> "sin ruta"</pre>
+
+  <h3>3.2 DFS · Búsqueda en profundidad</h3>
+  <p>Usa una <b>pila LIFO</b>: siempre continúa por el último vecino añadido. Los vecinos se apilan en orden inverso para que el primero en salir sea el Norte, así que DFS avanza hacia el Norte hasta chocar, luego al Este, etc., y solo retrocede en los callejones. Es completo en un tablero finito, explora pocas celdas cuando “acierta”, pero <b>no garantiza</b> la ruta más corta ni la más barata.</p>
+<pre>pila ← [(inicio, -)]
+<span class="k">mientras</span> pila no vacía:
+    (n, p) ← pila.sacarÚltimo()
+    <span class="k">si</span> visitado[n]: <span class="k">continuar</span>
+    visitado[n] ← cierto; padre[n] ← p
+    <span class="k">si</span> n es meta: <span class="k">devolver</span> ruta(n)
+    <span class="k">para cada</span> vecino v de n en orden O, S, E, N: <span class="k">si</span> no visitado[v]: pila.añadir((v, n))</pre>
+
+  <h3>3.3 UCS · Búsqueda de coste uniforme</h3>
+  <p>Es el algoritmo de Dijkstra orientado a encontrar una meta. Usa una <b>cola de prioridad ordenada por g(n)</b>, el coste acumulado desde el inicio, y siempre expande el nodo más barato. Si un vecino se alcanza por un camino más barato que el conocido, se actualiza. Con costes no negativos es completo y <b>óptimo en coste</b>.</p>
+  <p><b>Varias metas con penalización.</b> No basta con parar en la primera meta expandida: una meta cercana puede tener una penalización enorme. Por eso, al expandir una meta se inserta en la cola un <b>nodo final</b> con prioridad <code>g(meta) + penalización</code>. La búsqueda termina cuando un nodo final sale de la cola: en ese momento ninguna otra alternativa puede ser más barata. Es equivalente a añadir un nodo virtual “FIN” conectado a cada meta con una arista de coste igual a su penalización.</p>
+<pre>g[inicio] ← 0; cola.insertar(inicio, 0)
+<span class="k">mientras</span> cola no vacía:
+    e ← cola.sacarMínimo()
+    <span class="k">si</span> e es nodo final: <span class="k">devolver</span> ruta(e.meta)
+    <span class="k">si</span> cerrado[e]: <span class="k">continuar</span>;  cerrado[e] ← cierto
+    <span class="k">si</span> e es meta: cola.insertar(FINAL(e), g[e] + penalización(e))
+    <span class="k">para cada</span> vecino v: <span class="k">si</span> g[e] + coste(v) &lt; g[v]:
+        g[v] ← g[e] + coste(v); padre[v] ← e; cola.insertar(v, g[v])</pre>
+
+  <h3>3.4 A* · Búsqueda heurística</h3>
+  <p>Igual que UCS pero ordenando por <b>f(n) = g(n) + h(n)</b>, donde <i>h</i> estima lo que falta. Con varias metas se usa</p>
+  <p style="text-align:center"><code>h(n) = min<sub>m ∈ metas</sub> ( |fila<sub>n</sub> − fila<sub>m</sub>| + |col<sub>n</sub> − col<sub>m</sub>| + penalización(m) )</code></p>
+  <p>Como no hay diagonales y cada paso cuesta como mínimo 1, la distancia Manhattan nunca sobreestima el coste real: <b>h es admisible y consistente</b> (también para el nodo final, ya que h(meta) ≤ penalización de esa meta). Por tanto A* devuelve <b>el mismo coste óptimo que UCS</b>, pero se dirige hacia la meta más prometedora y expande muchas menos celdas. En los empates de f se prefiere el nodo con menor h (el más cercano a la meta).</p>
+
+  <h3>3.5 Binary Search · Búsqueda binaria</h3>
+  <p>La búsqueda binaria localiza un valor en un <b>array ordenado</b> comparando con el elemento central y descartando la mitad en cada paso: coste <b>O(log n)</b> frente a O(n) de una búsqueda lineal.</p>
+<pre><span class="k">function</span> binarySearch(ordenado, x) {
+  let lo = 0, hi = ordenado.length - 1;
+  <span class="k">while</span> (lo &lt;= hi) {
+    const mid = (lo + hi) &gt;&gt; 1;
+    <span class="k">if</span> (ordenado[mid] === x) <span class="k">return</span> mid;
+    <span class="k">if</span> (ordenado[mid] &lt; x) lo = mid + 1; <span class="k">else</span> hi = mid - 1;
+  }
+  <span class="k">return</span> -1;
+}</pre>
+  <p>En el laboratorio se aplica en la <b>cola de prioridad de UCS y A*</b>: la lista se mantiene ordenada de peor a mejor y cada inserción usa una variante (<i>lower bound</i>) para encontrar su posición en O(log n). Extraer el mejor elemento es un simple <code>pop()</code> del final, O(1). El proyecto base, en cambio, recorría toda la lista en cada extracción. La cola es además <b>estable</b> (a igual prioridad sale antes el que entró antes), lo que hace los resultados deterministas.</p>
+
+  <h3>3.6 Resumen comparativo</h3>
+  <table>
+    <tr><th></th><th>Estructura</th><th>Expande primero</th><th class="c">Completo</th><th class="c">Mín. pasos</th><th class="c">Mín. coste</th><th>Usa pesos/penalización</th></tr>
+    <tr><td><b>BFS</b></td><td>Cola FIFO</td><td>El nodo con menos pasos</td><td class="c ok">Sí</td><td class="c ok">Sí</td><td class="c ko">No</td><td>No</td></tr>
+    <tr><td><b>DFS</b></td><td>Pila LIFO</td><td>El nodo más profundo</td><td class="c ok">Sí*</td><td class="c ko">No</td><td class="c ko">No</td><td>No</td></tr>
+    <tr><td><b>UCS</b></td><td>Cola de prioridad g(n)</td><td>El de menor coste acumulado</td><td class="c ok">Sí</td><td class="c ko">No</td><td class="c ok">Sí</td><td>Sí</td></tr>
+    <tr><td><b>A*</b></td><td>Cola de prioridad f(n)</td><td>El de menor coste estimado total</td><td class="c ok">Sí</td><td class="c ko">No</td><td class="c ok">Sí</td><td>Sí (y en la heurística)</td></tr>
+  </table>
+  <p class="small">* DFS es completo en grafos finitos con control de visitados, como este tablero. Complejidad en el peor caso: O(V + E) para BFS/DFS y O(V log V) para UCS/A*, con V = 400 celdas.</p>
+</section>
+
+<!-- ================================================================== 4. COMPARATIVA -->
+<section class="chapter">
+  <h2>4. Tabla comparativa de los cuatro laberintos</h2>
+  <p>Resultados obtenidos al pulsar <i>Comparar todos</i> en cada escenario (idénticos a los de <code>tests/tests.html</code>). Pasos = movimientos de la ruta; coste = ruta + penalización; exploradas = nodos expandidos.</p>
+  <table>
+    <tr><th>Escenario</th><th>Algoritmo</th><th>Meta</th><th class="c">Pasos</th><th class="c">Coste total</th><th class="c">Exploradas</th><th>Conclusión</th></tr>
+    <tr><td rowspan="4"><b>1. Menos pasos</b><br><span class="small">Sin pesos. Atajo recto por la fila central frente a pasillos de rodeo.</span></td><td>BFS</td><td>(10,18)</td><td class="c ok">17</td><td class="c">17</td><td class="c">157</td><td rowspan="4">BFS obtiene los pasos mínimos. DFS prueba primero el Norte, entra en el pasillo superior y devuelve un rodeo de 33 pasos (casi el doble). Sin pesos, UCS y A* coinciden con BFS; A* explora 18 celdas frente a 157.</td></tr>
+    <tr><td>DFS</td><td>(10,18)</td><td class="c ko">33</td><td class="c">33</td><td class="c">34</td></tr>
+    <tr><td>UCS</td><td>(10,18)</td><td class="c">17</td><td class="c">17</td><td class="c">157</td></tr>
+    <tr><td>A*</td><td>(10,18)</td><td class="c">17</td><td class="c">17</td><td class="c ok">18</td></tr>
+    <tr><td rowspan="4"><b>2. Atajo caro</b><br><span class="small">Pasillo recto de 14 baldosas de peso 5 frente a rodeo sin pesos.</span></td><td>BFS</td><td>(10,18)</td><td class="c ok">17</td><td class="c ko">73</td><td class="c">240</td><td rowspan="4">BFS prefiere menos pasos y cruza el pasillo caro (3 celdas normales + 14 × 5 = 73). UCS y A* dan 4 pasos más por el rodeo pero cuestan 21, menos de un tercio. A* explora 26 celdas frente a 299 de UCS.</td></tr>
+    <tr><td>DFS</td><td>(10,18)</td><td class="c">57</td><td class="c">57</td><td class="c">58</td></tr>
+    <tr><td>UCS</td><td>(10,18)</td><td class="c">21</td><td class="c ok">21</td><td class="c">299</td></tr>
+    <tr><td>A*</td><td>(10,18)</td><td class="c">21</td><td class="c ok">21</td><td class="c ok">26</td></tr>
+    <tr><td rowspan="4"><b>3. Varias metas</b><br><span class="small">G (10,6) +25 cercana; H (2,17) +0 y I (18,17) +5 lejanas.</span></td><td>BFS</td><td>G (10,6) +25</td><td class="c ok">4</td><td class="c ko">29</td><td class="c">31</td><td rowspan="4">BFS se queda con la meta más cercana en pasos aunque su coste total sea 4 + 25 = 29. UCS y A* comparan coste total: H = 23 + 0 = 23, I = 23 + 5 = 28, G = 29, y eligen H.</td></tr>
+    <tr><td>DFS</td><td>H (2,17)</td><td class="c">67</td><td class="c">67</td><td class="c">68</td></tr>
+    <tr><td>UCS</td><td>H (2,17)</td><td class="c">23</td><td class="c ok">23</td><td class="c">320</td></tr>
+    <tr><td>A*</td><td>H (2,17)</td><td class="c">23</td><td class="c ok">23</td><td class="c ok">24</td></tr>
+    <tr><td rowspan="4"><b>4. Sin solución</b><br><span class="small">Barrera completa en la columna 10.</span></td><td>BFS</td><td>—</td><td class="c">—</td><td class="c">∞</td><td class="c">190</td><td rowspan="4">Los cuatro terminan tras expandir las 190 celdas alcanzables de la mitad izquierda e informan “Sin solución”. Sin ruta posible, la heurística de A* no ahorra trabajo.</td></tr>
+    <tr><td>DFS</td><td>—</td><td class="c">—</td><td class="c">∞</td><td class="c">190</td></tr>
+    <tr><td>UCS</td><td>—</td><td class="c">—</td><td class="c">∞</td><td class="c">190</td></tr>
+    <tr><td>A*</td><td>—</td><td class="c">—</td><td class="c">∞</td><td class="c">190</td></tr>
+  </table>
+  <div class="box green"><b>UCS y A* coinciden en coste óptimo</b> en los cuatro escenarios (17, 21, 23 y sin ruta) y en 500 mapas aleatorios adicionales con pesos no negativos (prueba T11: 0 discrepancias). A* explora entre un 89 % y un 93 % menos celdas que UCS cuando existe ruta.</div>
+
+  <div class="two">
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/05_esc1_comparar.png" alt=""></div><figcaption>Figura 7. Escenario 1: rutas superpuestas (DFS en morado da el rodeo).</figcaption></figure>
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/06_esc2_comparar.png" alt=""></div><figcaption>Figura 8. Escenario 2: BFS (azul) cruza el pasillo de peso 5; UCS y A* rodean.</figcaption></figure>
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/10_esc3_astar.png" alt=""></div><figcaption>Figura 9. Escenario 3: A* va directo a la meta H explorando solo 24 celdas.</figcaption></figure>
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/12_esc4_ucs.png" alt=""></div><figcaption>Figura 10. Escenario 4: UCS explora toda la zona alcanzable y declara “Sin solución”.</figcaption></figure>
+  </div>
+</section>
+
+<!-- ================================================================== 5. LENGUAJES -->
+<section class="chapter">
+  <h2>5. Lenguaje de etiquetado, lenguaje de programación y herramientas</h2>
+
+  <h3>5.1 HTML5 · lenguaje de etiquetado</h3>
+  <p><b>HTML</b> (<i>HyperText Markup Language</i>) no es un lenguaje de programación sino de <b>etiquetado</b>: describe la estructura y el significado del contenido mediante etiquetas. En el laboratorio define las zonas diseñadas en draw.io con etiquetas semánticas: <code>&lt;header&gt;</code> para los controles, <code>&lt;main&gt;</code> con dos <code>&lt;aside&gt;</code> (Algoritmo y Métricas) y una <code>&lt;section&gt;</code> (Mapa), otra <code>&lt;section&gt;</code> para la Comparativa con una <code>&lt;table&gt;</code>, y controles nativos (<code>&lt;select&gt;</code>, <code>&lt;input type="range"&gt;</code>, <code>&lt;input type="number"&gt;</code>, <code>&lt;button&gt;</code>). Se añadieron atributos <b>ARIA</b> (<code>role="grid"</code>, <code>aria-label</code>, <code>aria-live</code>) para que el tablero y los mensajes de estado sean accesibles con lector de pantalla.</p>
+  <p><b>Justificación:</b> es el estándar que interpreta cualquier navegador, no requiere instalación y separa claramente la estructura del estilo y de la lógica.</p>
+
+  <h3>5.2 CSS3 · lenguaje de estilos</h3>
+  <p>Se usa <b>CSS Grid</b> para la distribución en tres columnas y para el propio tablero (<code>grid-template-columns: repeat(20, 1fr)</code>), <code>aspect-ratio: 1 / 1</code> para que el mapa sea siempre cuadrado, <b>variables CSS</b> para centralizar la paleta (cada estado de celda y cada algoritmo tiene su color) y <code>@media</code> para adaptar la página a tablet y móvil.</p>
+
+  <h3>5.3 JavaScript · lenguaje de programación</h3>
+  <p><b>JavaScript</b> (estándar ECMAScript 2020) es el único lenguaje de programación que ejecutan de forma nativa todos los navegadores. Se utilizó sin <i>frameworks</i> ni librerías externas. Características empleadas: clases (<code>Grid</code>, <code>PriorityQueue</code>), funciones flecha, desestructuración, <code>Set</code> y <code>Map</code>, plantillas de texto, el operador <code>??</code>, eventos de puntero (<code>pointerdown/move/up</code>) que unifican ratón y táctil, <code>setTimeout</code> para la animación y <code>URLSearchParams</code> para los estados reproducibles.</p>
+  <p><b>Justificación frente a alternativas:</b></p>
+  <ul>
+    <li><b>Frente a Python</b> (el lenguaje de otras prácticas): Python no se ejecuta en el navegador sin un servidor o sin cargar un intérprete pesado (Pyodide, ~10 MB). Con JavaScript la aplicación es estática, arranca al instante y se despliega gratis en Netlify.</li>
+    <li><b>Frente a un framework</b> (React, Vue, Angular): la aplicación es pequeña; un framework añadiría dependencias, un paso de compilación y complejidad sin aportar nada esencial. En JavaScript “puro” el código de los algoritmos es directo y fácil de relacionar con el pseudocódigo de clase.</li>
+    <li><b>Separación de responsabilidades:</b> los algoritmos se escribieron como funciones puras sin acceso al DOM, lo que permite probarlos de forma aislada y reutilizarlos en la página de pruebas.</li>
+  </ul>
+
+  <h3>5.4 SVG</h3>
+  <p>SVG (<i>Scalable Vector Graphics</i>), también basado en etiquetas, se usa para dibujar las rutas encima del tablero (<code>&lt;polyline&gt;</code> con coordenadas en unidades de celda, por lo que escalan con el tamaño del mapa) y para el logotipo.</p>
+
+  <h3>5.5 Herramientas</h3>
+  <table>
+    <tr><th>Herramienta</th><th>Para qué se usó</th></tr>
+    <tr><td><b>draw.io</b> (diagrams.net)</td><td>Diseño del wireframe con la estructura de la interfaz antes de programar (Figura 2).</td></tr>
+    <tr><td><b>Visual Studio Code</b></td><td>Editor de código.</td></tr>
+    <tr><td><b>Claude Code</b> (asistente de IA)</td><td>Apoyo durante el desarrollo: generación y revisión de código, pruebas y documentación.</td></tr>
+    <tr><td><b>Git</b> y <b>GitHub</b></td><td>Control de versiones y repositorio público del proyecto.</td></tr>
+    <tr><td><b>Netlify</b></td><td>Alojamiento y despliegue continuo del sitio estático desde GitHub.</td></tr>
+    <tr><td><b>Google Chrome</b> (DevTools y modo <i>headless</i>)</td><td>Depuración, ejecución de las pruebas, capturas reproducibles y exportación de este informe a PDF.</td></tr>
+  </table>
+</section>
+
+<!-- ================================================================== 6. MEJORAS -->
+<section class="chapter">
+  <h2>6. Mejoras implementadas</h2>
+  <p>Mejoras respecto al proyecto base de clase (<code>laboratorio_rutas</code>) y respecto a los requisitos mínimos:</p>
+  <table>
+    <tr><th>Área</th><th>Mejora</th></tr>
+    <tr><td rowspan="4"><b>Algoritmos</b></td><td><b>Varias metas</b> con <b>penalización por meta</b> (el base solo admitía una meta y un coste global).</td></tr>
+    <tr><td>UCS y A* con <b>terminación correcta en multi-meta</b> (nodo final con g + penalización) y <b>heurística multi-meta admisible</b> para A*.</td></tr>
+    <tr><td>Cola de prioridad ordenada con <b>Binary Search</b> y desempate estable (el base buscaba el mínimo recorriendo toda la lista en cada extracción).</td></tr>
+    <tr><td>DFS “auténtico”: marca los nodos al <b>sacarlos</b> de la pila; en el base se marcaban al apilarlos, lo que mezcla el comportamiento con BFS.</td></tr>
+    <tr><td rowspan="4"><b>Visualización</b></td><td>Se muestra la <b>frontera</b> además de las celdas exploradas y el nodo actual.</td></tr>
+    <tr><td>Botón <b>Pausar / Reanudar</b> y <b>5 velocidades</b> (en las rápidas se procesan varias celdas por fotograma).</td></tr>
+    <tr><td>Rutas dibujadas como <b>líneas SVG</b>; <b>superposición</b> de las cuatro rutas y modo <b>alternar</b> para ver la exploración de cada una.</td></tr>
+    <tr><td>Métrica de <b>coste total con el cálculo desglosado</b> (ruta + meta) y panel con la explicación del algoritmo elegido.</td></tr>
+    <tr><td rowspan="2"><b>Comparación</b></td><td>Tabla con <b>resaltado del mejor valor</b> de cada columna, filas clicables y columna <i>Cálculo</i>.</td></tr>
+    <tr><td><b>Conclusión automática</b> que explica las diferencias y verifica que UCS y A* coinciden en coste.</td></tr>
+    <tr><td rowspan="4"><b>Edición</b></td><td>Modelo con <b>un tipo por celda</b>: imposible que una celda sea muro y meta a la vez.</td></tr>
+    <tr><td><b>Arrastrar</b> para mover inicio y metas; clic sobre una meta para cambiar su coste.</td></tr>
+    <tr><td>Edición completa por <b>teclado</b> (flechas, Enter, atajos O/B/I/M/P) y soporte <b>táctil</b>.</td></tr>
+    <tr><td>Al editar tras ejecutar se <b>invalidan los resultados</b> y la comparativa se marca como desactualizada.</td></tr>
+    <tr><td rowspan="3"><b>Reproducibilidad</b></td><td>Escenarios definidos en texto y <b>mapas aleatorios con semilla</b> (misma semilla = mismo mapa).</td></tr>
+    <tr><td><b>Parámetros de URL</b> y “guiones” (<code>&amp;guion=compare;show:ucs</code>) que reproducen cualquier estado.</td></tr>
+    <tr><td><b>14 pruebas automáticas</b> en el navegador, incluida la comprobación UCS = A* en 504 mapas.</td></tr>
+    <tr><td><b>Interfaz</b></td><td>Diseño adaptable a móvil, accesibilidad (ARIA, foco visible) y sin dependencias externas.</td></tr>
+  </table>
+  <div class="two">
+    <figure><div class="crop" style="--x:0;--y:1010;--w:1400;--h:440"><img src="../docs/capturas/09_esc3_comparar.png" alt=""></div><figcaption>Figura 11. Tabla comparativa con mejores valores resaltados y conclusión automática.</figcaption></figure>
+    <figure><img src="../docs/capturas/13_movil.png" alt="" style="max-height:95mm"><figcaption>Figura 12. Vista en móvil (375 px).</figcaption></figure>
+  </div>
+</section>
+
+<!-- ================================================================== 7. PRUEBAS -->
+<section class="chapter">
+  <h2>7. Pruebas realizadas</h2>
+  <p>Las pruebas se ejecutan abriendo <code>tests/tests.html</code>. Cada caso indica entrada, resultado esperado y resultado obtenido; las capturas de interfaz se reproducen con los parámetros de URL indicados. <b>Resultado: 14 / 14 pruebas superadas.</b></p>
+  <table>
+    <tr><th>ID</th><th>Caso</th><th>Entrada</th><th>Esperado</th><th>Obtenido</th><th class="c">Estado</th></tr>
+    <tr><td>T01</td><td>Ruta simple</td><td>Tablero vacío, S (0,0), meta (0,5).</td><td>Los 4: 5 pasos, coste 5.</td><td>Los 4: 5 pasos, coste 5 (BFS/UCS 16 expl., DFS/A* 6).</td><td class="c ok">✔</td></tr>
+    <tr><td>T02</td><td>Ausencia de inicio</td><td>Escenario 1 sin inicio → Ejecutar.</td><td>No ejecuta, aviso “Falta el inicio”.</td><td>Error “Falta el inicio…”, 0 exploradas; estado “No se puede ejecutar”.</td><td class="c ok">✔</td></tr>
+    <tr><td>T03</td><td>Ausencia de meta</td><td>Escenario 1 sin meta → Ejecutar.</td><td>No ejecuta, aviso “Falta la meta”.</td><td>Error “Falta la meta…”, 0 exploradas.</td><td class="c ok">✔</td></tr>
+    <tr><td>T04</td><td>Varias metas</td><td>Escenario 3 (G +25, H +0, I +5).</td><td>BFS → G (29); UCS/A* → H (23).</td><td>BFS G 4 pasos, 29; UCS H 23; A* H 23.</td><td class="c ok">✔</td></tr>
+    <tr><td>T05</td><td>Pesos</td><td>Escenario 2 (pasillo de peso 5).</td><td>BFS 17 pasos/73; UCS, A* 21/21.</td><td>BFS 17/73; UCS 21/21; A* 21/21.</td><td class="c ok">✔</td></tr>
+    <tr><td>T06</td><td>Obstáculos</td><td>Muro columna 10 (hueco fila 19), S (10,0), meta (10,19).</td><td>Rodean por (19,10); BFS/UCS/A* 37; DFS ≥ 37.</td><td>BFS/UCS/A* 37; DFS 77; ninguna pisa muros.</td><td class="c ok">✔</td></tr>
+    <tr><td>T07</td><td>Sin solución</td><td>Escenario 4.</td><td>Los 4 terminan sin ruta.</td><td>Los 4: sin ruta, 190 = celdas alcanzables.</td><td class="c ok">✔</td></tr>
+    <tr><td>T08</td><td>Edición tras ejecutar</td><td>Escenario 1 → comparar → muro en (10,9) → comparar.</td><td>Resultados invalidados; nueva ruta de 19 pasos que evita (10,9).</td><td>Antes 17; después 19; la ruta no pisa (10,9).</td><td class="c ok">✔</td></tr>
+    <tr><td>T09</td><td>Coherencia</td><td>Muro sobre meta, inicio sobre meta, meta sobre inicio, 2º inicio, penalización −3, peso 0.</td><td>Rechazados; 1 inicio; penalización 0; peso 2.</td><td>Todo rechazado; 1 inicio en (3,3); 0; 2.</td><td class="c ok">✔</td></tr>
+    <tr><td>T10</td><td>Penalización</td><td>S (0,0), meta (0,3) +7.</td><td>Los 4: 3 + 7 = 10.</td><td>Los 4: 3 + 7 = 10.</td><td class="c ok">✔</td></tr>
+    <tr><td>T11</td><td>UCS = A*</td><td>4 escenarios + 500 mapas aleatorios.</td><td>Mismo coste en todos.</td><td>504 mapas, 0 discrepancias.</td><td class="c ok">✔</td></tr>
+    <tr><td>T12</td><td>Rutas válidas</td><td>200 mapas aleatorios.</td><td>Ortogonales, sin muros; BFS nunca más largo.</td><td>788 rutas, 0 inválidas, 0 casos.</td><td class="c ok">✔</td></tr>
+    <tr><td>T13</td><td>Binary Search</td><td>[1,3,5,7,9,11]; cola A5, B2, C5, D1.</td><td>3, 0, 5, −1; D, B, A, C.</td><td>3, 0, 5, −1; D, B, A, C.</td><td class="c ok">✔</td></tr>
+    <tr><td>T14</td><td>Reproducibilidad</td><td>Escenarios y semilla 42 dos veces.</td><td>Idénticos.</td><td>Idénticos.</td><td class="c ok">✔</td></tr>
+  </table>
+
+  <figure><div class="crop" style="--x:0;--y:0;--w:1400;--h:1300"><img src="../docs/capturas/14_pruebas.png" alt=""></div><figcaption>Figura 13. Salida de la página de pruebas (<code>tests/tests.html</code>).</figcaption></figure>
+
+  <h3>Capturas de las pruebas en la interfaz</h3>
+  <div class="two">
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/t01_ruta_simple.png" alt=""></div><figcaption>T01 · Ruta simple.</figcaption></figure>
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/t02_sin_inicio.png" alt=""></div><figcaption>T02 · Sin inicio: “No se puede ejecutar”.</figcaption></figure>
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/t03_sin_meta.png" alt=""></div><figcaption>T03 · Sin meta.</figcaption></figure>
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/t06_obstaculos.png" alt=""></div><figcaption>T06 · Obstáculos: todas las rutas rodean por la fila 19.</figcaption></figure>
+  </div>
+  <h4>T08 · Edición del tablero tras ejecutar</h4>
+  <div class="three">
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/t08a_antes_editar.png" alt=""></div><figcaption>1. UCS: 17 pasos.</figcaption></figure>
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/t08b_tras_editar.png" alt=""></div><figcaption>2. Muro en (10,9): “Mapa modificado”.</figcaption></figure>
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/t08c_reejecutar.png" alt=""></div><figcaption>3. Nueva ruta: 19 pasos.</figcaption></figure>
+  </div>
+  <div class="two">
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/t10_penalizacion.png" alt=""></div><figcaption>T04/T10 · BFS en el escenario 3: 4 (ruta) + 25 (meta) = 29.</figcaption></figure>
+    <figure><div class="crop" style="--x:270;--y:100;--w:1116;--h:790"><img src="../docs/capturas/11_esc4_comparar.png" alt=""></div><figcaption>T07 · Sin solución en los cuatro algoritmos.</figcaption></figure>
+  </div>
+</section>
+
+<!-- ================================================================== 8. LIMITACIONES -->
+<section class="chapter">
+  <h2>8. Limitaciones y enlaces</h2>
+  <h3>Limitaciones</h3>
+  <ul>
+    <li>Tablero de tamaño fijo 20 × 20 y solo movimiento ortogonal.</li>
+    <li>Pesos enteros entre 2 y 99 y penalizaciones enteras entre 0 y 999. No se admiten costes negativos, porque romperían la optimalidad de UCS y A*.</li>
+    <li>El resultado de DFS depende del orden de vecinos elegido (N, E, S, O).</li>
+    <li>La frontera de DFS puede contener duplicados (se descartan al sacarlos de la pila).</li>
+    <li>Los mapas dibujados a mano no se guardan entre sesiones; se pueden reproducir mediante los parámetros de URL.</li>
+  </ul>
+  <h3>Posibles ampliaciones</h3>
+  <ul>
+    <li>Movimiento diagonal opcional con heurística octil.</li>
+    <li>Guardar y compartir mapas (exportar/importar JSON o <i>localStorage</i>).</li>
+    <li>Otros algoritmos: búsqueda voraz (<i>Greedy Best-First</i>), búsqueda bidireccional o IDA*.</li>
+    <li>Gráfico de barras con las exploradas de cada algoritmo.</li>
+  </ul>
+  <h3>Enlaces</h3>
+  <table>
+    <tr><td style="width:35%"><b>Aplicación desplegada (Netlify)</b></td><td><a href="https://laboratorio-rutas-julen.netlify.app">https://laboratorio-rutas-julen.netlify.app</a></td></tr>
+    <tr><td><b>Repositorio (GitHub)</b></td><td><a href="https://github.com/altu44/laboratorio-rutas">https://github.com/altu44/laboratorio-rutas</a></td></tr>
+    <tr><td><b>Pruebas online</b></td><td><a href="https://laboratorio-rutas-julen.netlify.app/tests/tests.html">https://laboratorio-rutas-julen.netlify.app/tests/tests.html</a></td></tr>
+    <tr><td><b>Documentación de pruebas</b></td><td><a href="https://github.com/altu44/laboratorio-rutas/blob/main/docs/pruebas.md">docs/pruebas.md</a></td></tr>
+  </table>
+</section>
+
+</body>
+</html>

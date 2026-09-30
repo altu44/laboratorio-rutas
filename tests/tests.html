@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pruebas · Laboratorio de Rutas</title>
+  <style>
+    body { font-family: "Segoe UI", system-ui, sans-serif; margin: 24px; color: #1e293b; background: #f8fafc; }
+    h1 { margin: 0 0 4px; font-size: 22px; }
+    h2 { font-size: 17px; margin: 28px 0 8px; }
+    a { color: #2563eb; }
+    table { border-collapse: collapse; width: 100%; background: #fff; font-size: 12.5px; }
+    th, td { border: 1px solid #cbd5e1; padding: 6px 8px; vertical-align: top; text-align: left; }
+    th { background: #1e293b; color: #fff; }
+    pre { margin: 0; white-space: pre-wrap; font-family: Consolas, monospace; font-size: 11.5px; }
+    tr.ok .verdict { color: #15803d; font-weight: 700; white-space: nowrap; }
+    tr.ko { background: #fef2f2; }
+    tr.ko .verdict { color: #b91c1c; font-weight: 700; }
+    .ok { color: #15803d; } .ko { color: #b91c1c; }
+    #json { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Pruebas del Laboratorio de Rutas</h1>
+  <p id="summary">Ejecutando…</p>
+  <p><a href="../index.html">← Volver al laboratorio</a></p>
+
+  <h2>Casos de prueba</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Caso</th><th>Entrada</th><th>Resultado esperado</th><th>Resultado obtenido</th><th>Estado</th></tr></thead>
+    <tbody id="cases"></tbody>
+  </table>
+
+  <h2>Resultados de los cuatro escenarios</h2>
+  <table>
+    <thead><tr><th>Escenario</th><th>Algoritmo</th><th>Meta</th><th>Pasos</th><th>Exploradas</th><th>Coste (ruta + meta = total)</th></tr></thead>
+    <tbody id="scenarios"></tbody>
+  </table>
+
+  <pre id="json"></pre>
+
+  <script src="../js/grid.js"></script>
+  <script src="../js/priorityQueue.js"></script>
+  <script src="../js/algorithms.js"></script>
+  <script src="../js/scenarios.js"></script>
+  <script src="tests.js"></script>
+</body>
+</html>
