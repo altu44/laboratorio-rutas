@@ -181,6 +181,7 @@
 
   function renderExplain() {
     const info = ALGORITHM_INFO[ui.algorithm.value];
+    ui.explain.dataset.alg = ui.algorithm.value;
     ui.explain.innerHTML = `
       <h3>Algoritmo elegido</h3>
       <h4>${info.name}</h4>

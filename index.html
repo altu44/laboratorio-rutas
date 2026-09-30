@@ -47,7 +47,7 @@
     <aside class="panel" aria-labelledby="h-algoritmo">
       <h2 id="h-algoritmo" class="panel-title">Algoritmo</h2>
 
-      <section class="card">
+      <section class="card c-blue">
         <h3>Método de búsqueda</h3>
         <select id="algorithm" class="select" aria-label="Método de búsqueda">
           <option value="bfs">BFS · Anchura</option>
@@ -57,12 +57,12 @@
         </select>
       </section>
 
-      <section class="card">
+      <section class="card c-violet">
         <h3>Escenarios</h3>
         <div id="scenarios" class="scenario-grid"></div>
       </section>
 
-      <section class="card">
+      <section class="card c-green">
         <h3>Dibujo</h3>
         <div class="tools" role="radiogroup" aria-label="Herramienta de dibujo">
           <button class="tool active" data-tool="wall" type="button" role="radio" aria-checked="true"><i class="sw sw-wall"></i>Obstáculo <kbd>O</kbd></button>
@@ -117,10 +117,10 @@
       </section>
 
       <section class="metrics">
-        <div class="metric"><span>Exploradas</span><strong id="mExplored">—</strong></div>
-        <div class="metric"><span>Pasos</span><strong id="mSteps">—</strong></div>
-        <div class="metric"><span>Coste ruta</span><strong id="mPathCost">—</strong></div>
-        <div class="metric"><span>Coste meta</span><strong id="mPenalty">—</strong></div>
+        <div class="metric m-explored"><span>Exploradas</span><strong id="mExplored">—</strong></div>
+        <div class="metric m-steps"><span>Pasos</span><strong id="mSteps">—</strong></div>
+        <div class="metric m-path"><span>Coste ruta</span><strong id="mPathCost">—</strong></div>
+        <div class="metric m-goal"><span>Coste meta</span><strong id="mPenalty">—</strong></div>
       </section>
 
       <section class="card total">
@@ -142,7 +142,7 @@
         <button id="btnSuperponer" class="btn" type="button">◎ Superponer rutas</button>
         <label class="route-select">
           <span>Ruta a mostrar</span>
-          <select id="routeSelect" class="select" size="4" aria-label="Ruta a mostrar">
+          <select id="routeSelect" class="select" aria-label="Ruta a mostrar">
             <option value="bfs" selected>BFS</option>
             <option value="dfs">DFS</option>
             <option value="ucs">UCS</option>

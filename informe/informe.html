@@ -93,7 +93,7 @@
   <p>Se ha desarrollado una aplicación web estática que permite dibujar un tablero de 20 × 20 celdas con un inicio, una o varias metas (cada una con una penalización no negativa), obstáculos y baldosas con peso, y ejecutar sobre él cuatro algoritmos de búsqueda: <b>BFS</b>, <b>DFS</b>, <b>UCS</b> y <b>A*</b>. La aplicación anima la exploración (celdas exploradas, frontera y ruta final), permite pausarla y cambiar la velocidad, informa de las métricas (exploradas, pasos, coste de la ruta, coste de la meta y coste total) y compara los cuatro algoritmos sobre el mismo mapa con una tabla, rutas superpuestas y una conclusión generada automáticamente.</p>
   <p>Se incluyen cuatro escenarios diseñados que ponen a prueba decisiones distintas (menos pasos, atajo caro, varias metas y mapa sin solución), una batería de <b>14 pruebas automáticas</b> (todas superadas) y la comprobación de que <b>UCS y A* obtienen siempre el mismo coste óptimo</b> en 504 mapas con pesos no negativos.</p>
   <figure>
-    <div class="crop" style="--x:0;--y:0;--w:1400;--h:1460"><img src="../docs/capturas/09_esc3_comparar.png" alt=""></div>
+    <div class="crop" style="--x:0;--y:0;--w:1400;--h:1310"><img src="../docs/capturas/09_esc3_comparar.png" alt=""></div>
     <figcaption>Figura 1. Vista general de la aplicación: escenario 3 (varias metas) con los cuatro algoritmos comparados.</figcaption>
   </figure>
 </section>
@@ -131,8 +131,8 @@
   <h3>Paso 6 · Interfaz, edición y animación (<code>app.js</code>, <code>styles.css</code>)</h3>
   <p>Se construyeron las 400 celdas una sola vez y se repintan por clases CSS. La edición funciona con ratón, táctil (<i>pointer events</i>) y teclado (flechas + Enter). Arrastrar el inicio o una meta los mueve. La animación avanza la traza con <code>setTimeout</code> según la velocidad elegida y se puede pausar y reanudar; si el usuario edita el tablero durante o después de una ejecución, la animación se detiene y los resultados se invalidan.</p>
   <div class="two">
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/02_explorando_bfs.png" alt=""></div><figcaption>Figura 4. Exploración de BFS en pausa: azul = explorado, lila = frontera, borde negro = nodo actual.</figcaption></figure>
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/04_esc1_dfs.png" alt=""></div><figcaption>Figura 5. Resultado final de DFS con su ruta y métricas.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/02_explorando_bfs.png" alt=""></div><figcaption>Figura 4. Exploración de BFS en pausa: azul = explorado, lila = frontera, borde negro = nodo actual.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/04_esc1_dfs.png" alt=""></div><figcaption>Figura 5. Resultado final de DFS con su ruta y métricas.</figcaption></figure>
   </div>
 
   <h3>Paso 7 · Comparativa</h3>
@@ -306,10 +306,10 @@
   <div class="box green"><b>UCS y A* coinciden en coste óptimo</b> en los cuatro escenarios (17, 21, 23 y sin ruta) y en 500 mapas aleatorios adicionales con pesos no negativos (prueba T11: 0 discrepancias). A* explora entre un 89 % y un 93 % menos celdas que UCS cuando existe ruta.</div>
 
   <div class="two">
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/05_esc1_comparar.png" alt=""></div><figcaption>Figura 7. Escenario 1: rutas superpuestas (DFS en morado da el rodeo).</figcaption></figure>
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/06_esc2_comparar.png" alt=""></div><figcaption>Figura 8. Escenario 2: BFS (azul) cruza el pasillo de peso 5; UCS y A* rodean.</figcaption></figure>
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/10_esc3_astar.png" alt=""></div><figcaption>Figura 9. Escenario 3: A* va directo a la meta H explorando solo 24 celdas.</figcaption></figure>
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/12_esc4_ucs.png" alt=""></div><figcaption>Figura 10. Escenario 4: UCS explora toda la zona alcanzable y declara “Sin solución”.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/05_esc1_comparar.png" alt=""></div><figcaption>Figura 7. Escenario 1: rutas superpuestas (DFS en morado da el rodeo).</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/06_esc2_comparar.png" alt=""></div><figcaption>Figura 8. Escenario 2: BFS (azul) cruza el pasillo de peso 5; UCS y A* rodean.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/10_esc3_astar.png" alt=""></div><figcaption>Figura 9. Escenario 3: A* va directo a la meta H explorando solo 24 celdas.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/12_esc4_ucs.png" alt=""></div><figcaption>Figura 10. Escenario 4: UCS explora toda la zona alcanzable y declara “Sin solución”.</figcaption></figure>
   </div>
 </section>
 
@@ -374,7 +374,7 @@
     <tr><td><b>Interfaz</b></td><td>Diseño adaptable a móvil, accesibilidad (ARIA, foco visible) y sin dependencias externas.</td></tr>
   </table>
   <div class="two">
-    <figure><div class="crop" style="--x:0;--y:1010;--w:1400;--h:440"><img src="../docs/capturas/09_esc3_comparar.png" alt=""></div><figcaption>Figura 11. Tabla comparativa con mejores valores resaltados y conclusión automática.</figcaption></figure>
+    <figure><div class="crop" style="--x:0;--y:880;--w:1400;--h:420"><img src="../docs/capturas/09_esc3_comparar.png" alt=""></div><figcaption>Figura 11. Tabla comparativa con mejores valores resaltados y conclusión automática.</figcaption></figure>
     <figure><img src="../docs/capturas/13_movil.png" alt="" style="max-height:95mm"><figcaption>Figura 12. Vista en móvil (375 px).</figcaption></figure>
   </div>
 </section>
@@ -405,20 +405,20 @@
 
   <h3>Capturas de las pruebas en la interfaz</h3>
   <div class="two">
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/t01_ruta_simple.png" alt=""></div><figcaption>T01 · Ruta simple.</figcaption></figure>
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/t02_sin_inicio.png" alt=""></div><figcaption>T02 · Sin inicio: “No se puede ejecutar”.</figcaption></figure>
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/t03_sin_meta.png" alt=""></div><figcaption>T03 · Sin meta.</figcaption></figure>
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/t06_obstaculos.png" alt=""></div><figcaption>T06 · Obstáculos: todas las rutas rodean por la fila 19.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/t01_ruta_simple.png" alt=""></div><figcaption>T01 · Ruta simple.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/t02_sin_inicio.png" alt=""></div><figcaption>T02 · Sin inicio: “No se puede ejecutar”.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/t03_sin_meta.png" alt=""></div><figcaption>T03 · Sin meta.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/t06_obstaculos.png" alt=""></div><figcaption>T06 · Obstáculos: todas las rutas rodean por la fila 19.</figcaption></figure>
   </div>
   <h4>T08 · Edición del tablero tras ejecutar</h4>
   <div class="three">
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/t08a_antes_editar.png" alt=""></div><figcaption>1. UCS: 17 pasos.</figcaption></figure>
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/t08b_tras_editar.png" alt=""></div><figcaption>2. Muro en (10,9): “Mapa modificado”.</figcaption></figure>
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/t08c_reejecutar.png" alt=""></div><figcaption>3. Nueva ruta: 19 pasos.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/t08a_antes_editar.png" alt=""></div><figcaption>1. UCS: 17 pasos.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/t08b_tras_editar.png" alt=""></div><figcaption>2. Muro en (10,9): “Mapa modificado”.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/t08c_reejecutar.png" alt=""></div><figcaption>3. Nueva ruta: 19 pasos.</figcaption></figure>
   </div>
   <div class="two">
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/t10_penalizacion.png" alt=""></div><figcaption>T04/T10 · BFS en el escenario 3: 4 (ruta) + 25 (meta) = 29.</figcaption></figure>
-    <figure><div class="crop" style="--x:348;--y:100;--w:1038;--h:800"><img src="../docs/capturas/11_esc4_comparar.png" alt=""></div><figcaption>T07 · Sin solución en los cuatro algoritmos.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/t10_penalizacion.png" alt=""></div><figcaption>T04/T10 · BFS en el escenario 3: 4 (ruta) + 25 (meta) = 29.</figcaption></figure>
+    <figure><div class="crop" style="--x:378;--y:100;--w:1008;--h:775"><img src="../docs/capturas/11_esc4_comparar.png" alt=""></div><figcaption>T07 · Sin solución en los cuatro algoritmos.</figcaption></figure>
   </div>
 </section>
 
