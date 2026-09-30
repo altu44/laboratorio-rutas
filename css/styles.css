@@ -109,7 +109,7 @@ button, input, select { font: inherit; color: inherit; }
 /* ------------------------------------------------------------ layout */
 .layout {
   display: grid;
-  grid-template-columns: 240px minmax(0, 1fr) 260px;
+  grid-template-columns: minmax(270px, 320px) minmax(0, 1fr) minmax(290px, 340px);
   gap: 14px;
   margin: 14px;
   align-items: start;
@@ -308,8 +308,8 @@ button, input, select { font: inherit; color: inherit; }
 .footer a { color: var(--accent); }
 
 /* ------------------------------------------------------------ responsive */
-@media (max-width: 1150px) {
-  .layout { grid-template-columns: 230px minmax(0, 1fr); }
+@media (max-width: 1200px) {
+  .layout { grid-template-columns: 280px minmax(0, 1fr); }
   .layout > aside:last-child { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
   .layout > aside:last-child .panel-title { grid-column: 1 / -1; }
   .layout > aside:last-child > * { margin: 0; }
