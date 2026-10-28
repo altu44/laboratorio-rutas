@@ -69,7 +69,7 @@
       <tr><td>Autor</td><td><b>Julen Altuna</b></td></tr>
       <tr><td>Asignatura</td><td>Programación de IA</td></tr>
       <tr><td>Fecha</td><td>30 de septiembre de 2026</td></tr>
-      <tr><td>Aplicación (Netlify)</td><td><a href="https://laboratorio-rutas-julen.netlify.app">laboratorio-rutas-julen.netlify.app</a></td></tr>
+      <tr><td>Aplicación (Vercel)</td><td><a href="https://laboratorio-rutas.vercel.app">laboratorio-rutas.vercel.app</a></td></tr>
       <tr><td>Repositorio (GitHub)</td><td><a href="https://github.com/altu44/laboratorio-rutas">github.com/altu44/laboratorio-rutas</a></td></tr>
     </table>
   </div>
@@ -149,7 +149,7 @@
   <p>Se creó <code>tests/tests.html</code>, que carga los mismos módulos que la aplicación y ejecuta 14 casos con entrada, esperado, obtenido y estado. Además, la aplicación acepta parámetros de URL (<code>?escenario=</code>, <code>?mapa=</code>, <code>&amp;guion=</code>) que reproducen exactamente un estado; con ellos y Chrome en modo <i>headless</i> se generaron todas las capturas de este informe.</p>
 
   <h3>Paso 10 · Publicación</h3>
-  <p>El código se subió a un repositorio público de GitHub y se conectó a <b>Netlify</b>. Al ser un sitio estático no hay paso de compilación (<code>netlify.toml</code> publica la raíz); cada <code>git push</code> a <code>main</code> redespliega la web automáticamente.</p>
+  <p>El código se subió a un repositorio público de GitHub y se importó en <b>Vercel</b>. Al ser un sitio estático no hay paso de compilación: Vercel publica la raíz del repositorio tal cual (<code>vercel.json</code> solo añade cabeceras de seguridad); cada <code>git push</code> a <code>main</code> redespliega la web automáticamente.</p>
 </section>
 
 <!-- ================================================================== 2. ARQUITECTURA -->
@@ -328,7 +328,7 @@
   <p><b>JavaScript</b> (estándar ECMAScript 2020) es el único lenguaje de programación que ejecutan de forma nativa todos los navegadores. Se utilizó sin <i>frameworks</i> ni librerías externas. Características empleadas: clases (<code>Grid</code>, <code>PriorityQueue</code>), funciones flecha, desestructuración, <code>Set</code> y <code>Map</code>, plantillas de texto, el operador <code>??</code>, eventos de puntero (<code>pointerdown/move/up</code>) que unifican ratón y táctil, <code>setTimeout</code> para la animación y <code>URLSearchParams</code> para los estados reproducibles.</p>
   <p><b>Justificación frente a alternativas:</b></p>
   <ul>
-    <li><b>Frente a Python</b> (el lenguaje de otras prácticas): Python no se ejecuta en el navegador sin un servidor o sin cargar un intérprete pesado (Pyodide, ~10 MB). Con JavaScript la aplicación es estática, arranca al instante y se despliega gratis en Netlify.</li>
+    <li><b>Frente a Python</b> (el lenguaje de otras prácticas): Python no se ejecuta en el navegador sin un servidor o sin cargar un intérprete pesado (Pyodide, ~10 MB). Con JavaScript la aplicación es estática, arranca al instante y se despliega gratis en Vercel.</li>
     <li><b>Frente a un framework</b> (React, Vue, Angular): la aplicación es pequeña; un framework añadiría dependencias, un paso de compilación y complejidad sin aportar nada esencial. En JavaScript “puro” el código de los algoritmos es directo y fácil de relacionar con el pseudocódigo de clase.</li>
     <li><b>Separación de responsabilidades:</b> los algoritmos se escribieron como funciones puras sin acceso al DOM, lo que permite probarlos de forma aislada y reutilizarlos en la página de pruebas.</li>
   </ul>
@@ -343,7 +343,7 @@
     <tr><td><b>Visual Studio Code</b></td><td>Editor de código.</td></tr>
     <tr><td><b>Claude Code</b> (asistente de IA)</td><td>Apoyo durante el desarrollo: generación y revisión de código, pruebas y documentación.</td></tr>
     <tr><td><b>Git</b> y <b>GitHub</b></td><td>Control de versiones y repositorio público del proyecto.</td></tr>
-    <tr><td><b>Netlify</b></td><td>Alojamiento y despliegue continuo del sitio estático desde GitHub.</td></tr>
+    <tr><td><b>Vercel</b></td><td>Alojamiento y despliegue continuo del sitio estático desde GitHub.</td></tr>
     <tr><td><b>Google Chrome</b> (DevTools y modo <i>headless</i>)</td><td>Depuración, ejecución de las pruebas, capturas reproducibles y exportación de este informe a PDF.</td></tr>
   </table>
 </section>
@@ -442,9 +442,9 @@
   </ul>
   <h3>Enlaces</h3>
   <table>
-    <tr><td style="width:35%"><b>Aplicación desplegada (Netlify)</b></td><td><a href="https://laboratorio-rutas-julen.netlify.app">https://laboratorio-rutas-julen.netlify.app</a></td></tr>
+    <tr><td style="width:35%"><b>Aplicación desplegada (Vercel)</b></td><td><a href="https://laboratorio-rutas.vercel.app">https://laboratorio-rutas.vercel.app</a></td></tr>
     <tr><td><b>Repositorio (GitHub)</b></td><td><a href="https://github.com/altu44/laboratorio-rutas">https://github.com/altu44/laboratorio-rutas</a></td></tr>
-    <tr><td><b>Pruebas online</b></td><td><a href="https://laboratorio-rutas-julen.netlify.app/tests/tests.html">https://laboratorio-rutas-julen.netlify.app/tests/tests.html</a></td></tr>
+    <tr><td><b>Pruebas online</b></td><td><a href="https://laboratorio-rutas.vercel.app/tests/tests.html">https://laboratorio-rutas.vercel.app/tests/tests.html</a></td></tr>
     <tr><td><b>Documentación de pruebas</b></td><td><a href="https://github.com/altu44/laboratorio-rutas/blob/main/docs/pruebas.md">docs/pruebas.md</a></td></tr>
   </table>
 </section>
